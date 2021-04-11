@@ -11,8 +11,21 @@
  * For ([1, 2, 3], 2) should return 1
  *
  */
-function findIndex(/* array, value */) {
-  throw new Error('Not implemented');
+function findIndex(array, value) {
+  function binarySearch(arr, target, start, end) {
+    if (end < 1) return arr[0];
+    const middle = Math.floor((start + (end - start) / 2));
+    if (target === arr[middle]) return middle;
+    if (end - 1 === start) return target === arr[start] ? start : end;
+    if (target > arr[middle]) return binarySearch(arr, target, middle, end);
+    if (target < arr[middle]) return binarySearch(arr, target, start, middle);
+    return undefined;
+  }
+
+  const start = 0;
+  const end = array.length;
+
+  return binarySearch(array, value, start, end);
 }
 
 module.exports = findIndex;
